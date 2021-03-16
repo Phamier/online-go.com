@@ -239,13 +239,6 @@ data.watch("config.user", (user) => {
     }
 });
 
-data.watch("theme", theme => {
-    if (theme == "custom") {
-        document.body.style.backgroundImage =`url(${data.get("customThemeURL")})`;
-    } else {
-        document.body.style.backgroundImage = `none`;
-    }
-});
 sockets.comm_socket.on("connect", () => {auth_connect_fn(); });
 
 

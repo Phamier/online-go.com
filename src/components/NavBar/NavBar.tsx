@@ -28,6 +28,7 @@ import {challenge, createDemoBoard} from "ChallengeModal";
 import {openNewGameModal} from "NewGameModal";
 import {KBShortcut} from "KBShortcut";
 import {LanguagePicker} from "LanguagePicker";
+import {CustomThemeEditor } from "CustomThemeEditor";
 import {GobanThemePicker} from "GobanThemePicker";
 import {IncidentReportTracker} from "IncidentReportTracker";
 import {NotificationIndicator, TurnIndicator, NotificationList} from "Notifications";
@@ -110,7 +111,7 @@ export class NavBar extends React.PureComponent<{}, any> {
             omnisearch_players: [],
             omnisearch_groups: [],
             omnisearch_tournaments: [],
-
+            theme: data.get("theme"),
 
             path: window.location.pathname,
         };
@@ -123,6 +124,20 @@ export class NavBar extends React.PureComponent<{}, any> {
 
     UNSAFE_componentWillMount() {
         data.watch("config.user", (user) => this.setState({"user": user}));
+        data.watch("theme", theme => {
+            this.setState({"theme": theme})
+            if (theme == "custom") {
+                body.css('background-image', `url(${data.get("customThemeURL")})`);
+            } else {
+                body.css('background-image', `none`);
+            }
+        });
+
+        data.watch("customThemeURL", url => {
+            if (data.get("theme") == "custom") {
+                body.css('background-image', `url(${url})`);
+            }
+        });
 
         browserHistory.listen(location => {
             this.closeNavbar();
@@ -362,6 +377,10 @@ export class NavBar extends React.PureComponent<{}, any> {
                         onClick={setThemeCustom}
                         ><i className="fa fa-gear"/></button>
                 </div>
+
+                {this.state.theme === "custom" && <div className="theme-selectors">
+                    <CustomThemeEditor />
+                </div>}
 
                 <div className="theme-selectors">
                     <GobanThemePicker />
