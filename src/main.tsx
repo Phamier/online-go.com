@@ -86,6 +86,7 @@ try {
 import * as data from "data";
 import * as preferences from "preferences";
 
+data.setDefault("customThemeURL", "https://i.ibb.co/fGfXv5R/bg-bggenerator-com.png");
 data.setDefault("theme", "light");
 data.setDefault("config", {
     "user": {
@@ -235,6 +236,14 @@ data.watch("config.user", (user) => {
     }
     if (sockets.comm_socket.connected) {
         auth_connect_fn();
+    }
+});
+
+data.watch("theme", theme => {
+    if (theme == "custom") {
+        document.body.style.backgroundImage =`url(${data.get("customThemeURL")})`;
+    } else {
+        document.body.style.backgroundImage = `none`;
     }
 });
 sockets.comm_socket.on("connect", () => {auth_connect_fn(); });
