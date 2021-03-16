@@ -19,8 +19,7 @@
 
 .container {
     width: 100%;
-    max-width: 1200px;
-    max-width: 1200px;
+    max-width: 1339px;
     margin-right: auto;
     margin-left: auto;
     padding-left: 0.5rem;
@@ -47,28 +46,20 @@
 }
 
 grid-breaks = {
-    xs: 0px
-    sm: 576px
-    md: 720px
-    lg: 940px
-    xl: 1140px
-}
-
-grid-breaks = {
-    xs: 575px
-    sm: 719px
-    md: 939px
-    lg: 1139px
+    xs: 576px
+    sm: 720px
+    md: 940px
+    lg: 1140px
 }
 
 for name in grid-breaks
-    @media only screen and (min-width: grid-breaks[name])
+    @media only screen and (min-width: grid-breaks[name] - 1)
         for i in 1 2 3 4 5 6 7 8 9 10 11 12
             .row .col-{name}-{i}
                 display: inline-block;
                 width: (i*8.333333333)%;
 
-    @media only screen and (max-width: grid-breaks[name])
+    @media only screen and (max-width: grid-breaks[name] - 1)
         for i in 1 2 3 4 5 6 7 8 9 10 11 12
             .row .col-{name}-{i}
                 display: inline-block;

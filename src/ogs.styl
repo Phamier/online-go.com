@@ -118,6 +118,9 @@ light.toast-fg                          = light.bg
 light.link-color                        = #0068F7
 light.link-color-active                 = darken(light.link-color, 20%)
 
+// Transparent for all theme except custom
+light.container-background-color        = transparent
+
 light.default-button                    = #E6E6E0
 light.primary                           = #2480FF
 light.danger                            = #FFA600
@@ -257,6 +260,9 @@ dark.toast-fg                           = dark.bg
 dark.link-color                         = #539bff
 dark.link-color-active                  = darken(dark.link-color, 20%)
 
+// Transparent for all theme except custom
+dark.container-background-color         = transparent
+
 dark.default-button                     = lighten(dark.bg, 10%)
 dark.default-button-color               = dark.fg
 dark.primary                            = darken(light.primary, core-color-darken-amount)
@@ -391,6 +397,9 @@ accessible.toast-fg                           = accessible.bg
 accessible.link-color                         = #539bff
 accessible.link-color-active                  = darken(accessible.link-color, 20%)
 
+// Transparent for all theme except custom
+accessible.container-background-color         = transparent
+
 accessible.default-button                     = lighten(accessible.bg, 10%)
 accessible.default-button-color               = accessible.fg
 accessible.primary                            = darken(light.primary, core-color-darken-amount)
@@ -512,7 +521,7 @@ custom.bg                                 = #1a1a1a
 custom.fg                                 = #bbbbbb
 custom.fg-increased-contrast              = #ffffff
 custom.mix-base                           = #777
-custom.background-color                   = transparent
+custom.background-color                   = alpha(black, 30%) 
 custom.card-background-color              = lighten(custom.bg, 7%)
 custom.text-color                         = custom.fg
 custom.spectator-text-color               = #8987FC
@@ -521,6 +530,9 @@ custom.toast-bg                           = custom.fg
 custom.toast-fg                           = custom.bg
 custom.link-color                         = #539bff
 custom.link-color-active                  = darken(custom.link-color, 20%)
+
+// Unique values for custom background
+custom.container-background-color         = alpha(custom.bg, 80%)
 
 custom.default-button                     = lighten(custom.bg, 10%)
 custom.default-button-color               = custom.fg
@@ -554,12 +566,12 @@ custom.admin                              = lighten(light.admin, 20%)
 custom.ambassador                         = light.ambassador
 custom.teacher                            = light.teacher
 
-custom.shade0                             = lighten(custom.bg, 70%)
-custom.shade1                             = lighten(custom.bg, 50%)
-custom.shade2                             = lighten(custom.bg, 35%)
-custom.shade3                             = lighten(custom.bg, 25%)
-custom.shade4                             = lighten(custom.bg, 20%)
-custom.shade5                             = lighten(custom.bg, 13%)
+custom.shade0                             = lighten(custom.container-background-color, 70%)
+custom.shade1                             = lighten(custom.container-background-color, 50%)
+custom.shade2                             = lighten(custom.container-background-color, 35%)
+custom.shade3                             = lighten(custom.container-background-color, 25%)
+custom.shade4                             = lighten(custom.container-background-color, 20%)
+custom.shade5                             = lighten(custom.container-background-color, 13%)
 
 custom.search-highlight                  = #554E00
 
@@ -615,7 +627,7 @@ custom.goban-shadow                       = none
 custom.goban-shadow-borderless            = none
 custom.miniboard-to-move                  = #2B4029
 custom.miniboard-to-move-border           = darken(custom.miniboard-to-move, 60%)
-custom.miniboard-hover                    = #578588
+custom.miniboard-hover                    = alpha(#578588, 70%);
 custom.miniboard-hover-border             = darken(custom.miniboard-hover, 30%)
 custom.miniboard-stone-removal            = #5B4810
 custom.miniboard-stone-removal-border     = darken(custom.miniboard-stone-removal, 45%)
