@@ -118,9 +118,6 @@ light.toast-fg                          = light.bg
 light.link-color                        = #0068F7
 light.link-color-active                 = darken(light.link-color, 20%)
 
-// Transparent for all theme except custom
-light.container-background-color        = transparent
-
 light.default-button                    = #E6E6E0
 light.primary                           = #2480FF
 light.danger                            = #FFA600
@@ -241,6 +238,12 @@ light.player-white-clock                = light.player-white-fg
 light.player-black-paused-clock          = #ABA8AD;
 light.player-white-paused-clock          = #928A99;
 
+/* Custom theme only */
+light.container-background-color         = transparent
+light.container-border                   = none
+light.container-border-color             = transparent
+light.container-box-shadow               = none
+
 /************/
 /*** DARK ***/
 /************/
@@ -259,9 +262,6 @@ dark.toast-bg                           = dark.fg
 dark.toast-fg                           = dark.bg
 dark.link-color                         = #539bff
 dark.link-color-active                  = darken(dark.link-color, 20%)
-
-// Transparent for all theme except custom
-dark.container-background-color         = transparent
 
 dark.default-button                     = lighten(dark.bg, 10%)
 dark.default-button-color               = dark.fg
@@ -375,6 +375,12 @@ dark.player-black-paused-clock          = #928A99;
 
 dark.joseki-ideal                       = #DBAF00;
 
+/* Custom theme only */
+dark.container-background-color         = transparent
+dark.container-border                   = none
+dark.container-border-color             = transparent
+dark.container-box-shadow               = none
+
 /******************/
 /*** ACCESSIBLE ***/
 /******************/
@@ -396,9 +402,6 @@ accessible.toast-bg                           = accessible.fg
 accessible.toast-fg                           = accessible.bg
 accessible.link-color                         = #539bff
 accessible.link-color-active                  = darken(accessible.link-color, 20%)
-
-// Transparent for all theme except custom
-accessible.container-background-color         = transparent
 
 accessible.default-button                     = lighten(accessible.bg, 10%)
 accessible.default-button-color               = accessible.fg
@@ -512,6 +515,12 @@ accessible.player-black-paused-clock          = #928A99;
 
 accessible.joseki-ideal                       = #DBAF00;
 
+/* Custom theme only */
+accessible.container-background-color         = transparent
+accessible.container-border                   = none
+accessible.container-border-color             = transparent
+accessible.container-box-shadow               = none
+
 /**************/
 /*** CUSTOM ***/
 /**************/
@@ -533,6 +542,9 @@ custom.link-color-active                  = darken(custom.link-color, 20%)
 
 // Unique values for custom background
 custom.container-background-color         = alpha(custom.bg, 80%)
+custom.container-border                   = 1px solid transparent
+custom.container-border-color             = lighten(custom.container-background-color, 10%)
+custom.container-box-shadow               = 0px 2px 10px 0px alpha(#000, 16%)
 
 custom.default-button                     = lighten(custom.bg, 10%)
 custom.default-button-color               = custom.fg
