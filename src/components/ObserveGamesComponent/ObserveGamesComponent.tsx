@@ -269,7 +269,7 @@ export class ObserveGamesComponent extends React.PureComponent<ObserveGamesCompo
 
         return (
         <div className="ObserveGamesComponent">
-            <div className="container">
+            <div className="container custom-theme-styles-all">
                 <div className="games">
                     <div className="header">
 
@@ -312,7 +312,7 @@ export class ObserveGamesComponent extends React.PureComponent<ObserveGamesCompo
             </div>
 
             {this.props.announcements && <ActiveAnnouncements  />}
-
+            <div className="container">
             <GameList
                 list={this.state.game_list}
                 disableSort={true}
@@ -321,6 +321,7 @@ export class ObserveGamesComponent extends React.PureComponent<ObserveGamesCompo
                 namesByGobans={this.props.namesByGobans}
                 forceList={this.state.force_list}
             />
+            </div>
         </div>
         );
     }
