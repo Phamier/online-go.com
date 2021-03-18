@@ -731,7 +731,7 @@ export class Puzzle extends React.Component<PuzzleProperties, PuzzleState> {
         let difficulty = longRankString(puzzle.rank);
 
         return (
-            <dl className="horizontal">
+            <dl className="horizontal custom-theme-styles-all">
             <dt>{_("Puzzle")}</dt>
             <dd>
             <select value={this.props.match.params.puzzle_id} onChange={this.jumpToPuzzle} id="selected_puzzle" >
