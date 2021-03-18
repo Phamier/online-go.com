@@ -84,9 +84,9 @@ export function PuzzleCollection({match:{params:{collection_id}}}:{match:{params
 
 
                     {puzzle_is_private &&
-                        <dd>
+                        <div className='privacy'>
                             <button className='success' onClick={() => openACLModal({puzzle_collection_id: collection_id})}>{pgettext("Control who can access the game or review", "Access settings")}</button>
-                        </dd>
+                        </div>
                     }
                 </dl>
 
