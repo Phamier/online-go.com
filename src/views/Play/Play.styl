@@ -33,7 +33,10 @@
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
-        box-sizing: border-box;
+    }
+
+    .col-sm-6 {
+        margin-bottom: 1rem;
     }
 
     .automatch-container {
@@ -51,6 +54,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
 
         .btn-group {
             display: flex;
@@ -186,11 +190,20 @@
     }
 }
 
+#play-bottom-container {
+    themed background-color container-background-color;
+    themed border container-border;
+    themed border-color border-coloround-color;
+    themed box-shadow container-box-shadow;
+
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding: 0.7rem;
+}
 
 #challenge-list-container {
     width: 100%;
     text-align: center;
-    margin-top: 3rem;
     max-width: 100vw;
     overflow-y: auto;
 }
@@ -198,6 +211,13 @@
 #challenge-list-inner-container {
     width: 100%;
     display: inline-block;
+}
+
+.custom-games-header {
+    display: flex;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-bottom: 0.5 rem;
 }
 
 #challenge-list {
@@ -208,14 +228,6 @@
         font-size: 0.9em;
         vertical-align: middle;
         cursor: help;
-    }
-
-    // Flex to escape from the table
-    .custom-games-list-header-row {
-        display: flex;
-        font-weight: bold;
-        white-space: nowrap;
-        padding-bottom: 0.5 rem;
     }
 
     .challenge-row {

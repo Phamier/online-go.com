@@ -383,127 +383,130 @@ export class Play extends React.Component<PlayProperties, any> {
                         </Card>
                     </div>
                 </div>
+                <div id="play-bottom-container">
+                    <div className='custom-games-header'>
+                        {_("Custom Games")}
+                    </div>
+                    <div id="challenge-list-container">
+                        <div id="challenge-list-inner-container">
+                            <div id="challenge-list" onMouseMove={this.freezeChallenges}>
 
-                <div id="challenge-list-container">
-                    <div id="challenge-list-inner-container">
-                        <div id="challenge-list" onMouseMove={this.freezeChallenges}>
-
-                            {(corr_automatchers.length || null) &&
-                            <div className='challenge-row'>
-                                <span className="cell break">{_("Your Automatch Requests")}</span>
-                                {this.cellBreaks(7)}
-                            </div>
-                            }
-                            {(corr_automatchers.length || null) &&
-                            <div className='challenge-row'>
-                                <span className="head"></span>
-                                <span className="head">{_("Rank")}</span>
-                                <span className="head">{_("Size")}</span>
-                                <span className="head">{_("Time Control")}</span>
-                                <span className="head">{_("Handicap")}</span>
-                                <span className="head">{_("Rules")}</span>
-                            </div>
-                            }
-                            {corr_automatchers.map((m) => (
-                                <div className='challenge-row automatch-challenge-row' key={m.uuid}>
-                                <span className='cell'>
-                                    <button className='reject xs'
-                                            onClick={() => { automatch_manager.cancel(m.uuid);
-                                            if (corr_automatchers.length === 1)  {
-                                                this.setState({showLoadingSpinnerForCorrespondence: false});
-                                            }
-                                            }}>{pgettext("Cancel automatch", "Cancel")}</button>
-                                </span>
-
-                                    <span className='cell'>
-                                    {m.lower_rank_diff === m.upper_rank_diff ?
-                                        <span>&plusmn; {m.lower_rank_diff}</span> :
-                                        <span>-{m.lower_rank_diff} &nbsp; +{m.upper_rank_diff}</span>}
-                                </span>
-
-                                    <span className='cell'>
-                                    {m.size_speed_options.filter((x) => x.speed === 'correspondence').map((x) => x.size).join(',')}
-                                </span>
-
-                                    <span className={m.time_control.condition + ' cell'}>
-                                    {m.time_control.condition === 'no-preference'
-                                        ? pgettext("Automatch: no preference", "No preference")
-                                        : timeControlSystemText(m.time_control.value.system)
-                                    }
-                                </span>
-
-                                    <span className={m.handicap.condition + ' cell'}>
-                                    {m.handicap.condition === 'no-preference'
-                                        ? pgettext("Automatch: no preference", "No preference")
-                                        : (m.handicap.value === 'enabled' ? pgettext("Handicap dnabled", "Enabled") : pgettext("Handicap disabled", "Disabled"))
-                                    }
-                                </span>
-
-                                    <span className={m.rules.condition + ' cell'}>
-                                    {m.rules.condition === 'no-preference'
-                                        ? pgettext("Automatch: no preference", "No preference")
-                                        : rulesText(m.rules.value)
-                                    }
-                                </span>
+                                {(corr_automatchers.length || null) &&
+                                <div className='challenge-row'>
+                                    <span className="cell break">{_("Your Automatch Requests")}</span>
+                                    {this.cellBreaks(7)}
                                 </div>
-                            ))}
+                                }
+                                {(corr_automatchers.length || null) &&
+                                <div className='challenge-row'>
+                                    <span className="head"></span>
+                                    <span className="head">{_("Rank")}</span>
+                                    <span className="head">{_("Size")}</span>
+                                    <span className="head">{_("Time Control")}</span>
+                                    <span className="head">{_("Handicap")}</span>
+                                    <span className="head">{_("Rules")}</span>
+                                </div>
+                                }
+                                {corr_automatchers.map((m) => (
+                                    <div className='challenge-row automatch-challenge-row' key={m.uuid}>
+                                    <span className='cell'>
+                                        <button className='reject xs'
+                                                onClick={() => { automatch_manager.cancel(m.uuid);
+                                                if (corr_automatchers.length === 1)  {
+                                                    this.setState({showLoadingSpinnerForCorrespondence: false});
+                                                }
+                                                }}>{pgettext("Cancel automatch", "Cancel")}</button>
+                                    </span>
 
-                            <div style={{marginTop: "2em"}}></div>
+                                        <span className='cell'>
+                                        {m.lower_rank_diff === m.upper_rank_diff ?
+                                            <span>&plusmn; {m.lower_rank_diff}</span> :
+                                            <span>-{m.lower_rank_diff} &nbsp; +{m.upper_rank_diff}</span>}
+                                    </span>
 
-                            <div className='custom-games-list-header-row'>
-                                {_("Custom Games")}
+                                        <span className='cell'>
+                                        {m.size_speed_options.filter((x) => x.speed === 'correspondence').map((x) => x.size).join(',')}
+                                    </span>
+
+                                        <span className={m.time_control.condition + ' cell'}>
+                                        {m.time_control.condition === 'no-preference'
+                                            ? pgettext("Automatch: no preference", "No preference")
+                                            : timeControlSystemText(m.time_control.value.system)
+                                        }
+                                    </span>
+
+                                        <span className={m.handicap.condition + ' cell'}>
+                                        {m.handicap.condition === 'no-preference'
+                                            ? pgettext("Automatch: no preference", "No preference")
+                                            : (m.handicap.value === 'enabled' ? pgettext("Handicap dnabled", "Enabled") : pgettext("Handicap disabled", "Disabled"))
+                                        }
+                                    </span>
+
+                                        <span className={m.rules.condition + ' cell'}>
+                                        {m.rules.condition === 'no-preference'
+                                            ? pgettext("Automatch: no preference", "No preference")
+                                            : rulesText(m.rules.value)
+                                        }
+                                    </span>
+                                    </div>
+                                ))}
+
+                                {/* <div style={{marginTop: "2em"}}></div> */}
+
+
+
+
+                                <div className="challenge-row">
+                                    <span className="cell break">{_("Short Games")}</span>
+                                    {this.cellBreaks(8)}
+                                </div>
+
+                                {this.anyChallengesToShow(true) ? this.challengeListHeaders() : null}
+
+                                {this.challengeList(true)}
+
+                                <div style={{marginTop: "2em"}}></div>
+
+                                <div className="challenge-row" style={{marginTop: "1em"}}>
+                                    <span className="cell break">{_("Long Games")}</span>
+                                    {this.cellBreaks(8)}
+                                </div>
+
+                                {this.anyChallengesToShow(false) ? this.challengeListHeaders() : null}
+
+                                {this.challengeList(false)}
+
                             </div>
-
-
-                            <div className="challenge-row">
-                                <span className="cell break">{_("Short Games")}</span>
-                                {this.cellBreaks(8)}
-                            </div>
-
-                            {this.anyChallengesToShow(true) ? this.challengeListHeaders() : null}
-
-                            {this.challengeList(true)}
-
-                            <div style={{marginTop: "2em"}}></div>
-
-                            <div className="challenge-row" style={{marginTop: "1em"}}>
-                                <span className="cell break">{_("Long Games")}</span>
-                                {this.cellBreaks(8)}
-                            </div>
-
-                            {this.anyChallengesToShow(false) ? this.challengeListHeaders() : null}
-
-                            {this.challengeList(false)}
-
                         </div>
+                    </div>
+
+                    <div className="showall-selector">
+                        <input id="show-all-challenges" type="checkbox" checked={this.state.show_all_challenges}
+                            onChange={this.toggleShowAllChallenges}/>
+                        <label htmlFor="show-all-challenges">{_("Show ineligible challenges")}</label>
+                        <br></br>
+                        <input id="show-ranked-challenges" type="checkbox" checked={this.state.show_ranked_challenges}
+                            onChange={this.toggleShowRankedChallenges}/>
+                        <label htmlFor="show-ranked-challenges">{_("Ranked")}</label>
+                        <input id="show-unranked-challenges" type="checkbox" checked={this.state.show_unranked_challenges}
+                            onChange={this.toggleShowUnrankedChallenges}/>
+                        <label htmlFor="show-unranked-challenges">{_("Unranked")}</label>
+                        <br></br>
+                        <input id="show-19x19-challenges" type="checkbox" checked={this.state.show_19x19_challenges}
+                            onChange={this.toggleShow19x19Challenges}/>
+                        <label htmlFor="show-19x19-challenges">{_("19x19")}</label>
+                        <input id="show-13x13-challenges" type="checkbox" checked={this.state.show_13x13_challenges}
+                            onChange={this.toggleShow13x13Challenges}/>
+                        <label htmlFor="show-13x13-challenges">{_("13x13")}</label>
+                        <input id="show-9x9-challenges" type="checkbox" checked={this.state.show_9x9_challenges}
+                            onChange={this.toggleShow9x9Challenges}/>
+                        <label htmlFor="show-9x9-challenges">{_("9x9")}</label>
+                        <input id="show-other-boardsize-challenges" type="checkbox" checked={this.state.show_other_boardsize_challenges}
+                            onChange={this.toggleShowOtherBoardsizeChallenges}/>
+                        <label htmlFor="show-other-boardsize-challenges">{_("Other boardsizes")}</label>
                     </div>
                 </div>
 
-                        <div className="showall-selector">
-                            <input id="show-all-challenges" type="checkbox" checked={this.state.show_all_challenges}
-                                onChange={this.toggleShowAllChallenges}/>
-                            <label htmlFor="show-all-challenges">{_("Show ineligible challenges")}</label>
-                            <br></br>
-                            <input id="show-ranked-challenges" type="checkbox" checked={this.state.show_ranked_challenges}
-                                onChange={this.toggleShowRankedChallenges}/>
-                            <label htmlFor="show-ranked-challenges">{_("Ranked")}</label>
-                            <input id="show-unranked-challenges" type="checkbox" checked={this.state.show_unranked_challenges}
-                                onChange={this.toggleShowUnrankedChallenges}/>
-                            <label htmlFor="show-unranked-challenges">{_("Unranked")}</label>
-                            <br></br>
-                            <input id="show-19x19-challenges" type="checkbox" checked={this.state.show_19x19_challenges}
-                                onChange={this.toggleShow19x19Challenges}/>
-                            <label htmlFor="show-19x19-challenges">{_("19x19")}</label>
-                            <input id="show-13x13-challenges" type="checkbox" checked={this.state.show_13x13_challenges}
-                                onChange={this.toggleShow13x13Challenges}/>
-                            <label htmlFor="show-13x13-challenges">{_("13x13")}</label>
-                            <input id="show-9x9-challenges" type="checkbox" checked={this.state.show_9x9_challenges}
-                                onChange={this.toggleShow9x9Challenges}/>
-                            <label htmlFor="show-9x9-challenges">{_("9x9")}</label>
-                            <input id="show-other-boardsize-challenges" type="checkbox" checked={this.state.show_other_boardsize_challenges}
-                                onChange={this.toggleShowOtherBoardsizeChallenges}/>
-                            <label htmlFor="show-other-boardsize-challenges">{_("Other boardsizes")}</label>
-                        </div>
 
             </div>
         );
