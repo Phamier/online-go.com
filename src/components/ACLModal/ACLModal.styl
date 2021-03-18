@@ -43,10 +43,15 @@
 
     .grant {
         display: flex;
-        flex-justify: spacing-between;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+
         margin: 1rem;
         .PlayerAutocomplete, .GroupAutocomplete {
-            margin-right: 1rem;
+            margin: 0.5rem;
+
+            flex-basis: 170px;
         }
 
         button {

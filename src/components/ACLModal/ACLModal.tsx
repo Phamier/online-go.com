@@ -136,7 +136,7 @@ export class ACLModal extends Modal<Events, ACLModalProperties, any> {
                 <div className="grant">
                     <PlayerAutocomplete ref="player_autocomplete" onComplete={this.playerComplete} />
                     <GroupAutocomplete ref="group_autocomplete" onComplete={this.groupComplete} />
-                    <button className="primary sm" onClick={this.grantAccess} >{_("Grant access")}</button>
+                    <button className="primary sm buttons" onClick={this.grantAccess} >{_("Grant access")}</button>
                 </div>
 
                 <div className="acl-entries">
