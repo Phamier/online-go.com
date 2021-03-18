@@ -17,7 +17,7 @@
 
 
 .Joseki {
-    top: below-navbar;
+    top: navbar-height;
     bottom: 0;
     right: 0;
     left: 0;
@@ -58,7 +58,7 @@
         }
 
         @media screen and (min-width: 801px) {
-            padding-left: 1 em;
+            padding: 1em 1rem 0 1rem;
         }
         padding-top: 1em;
 
@@ -75,16 +75,16 @@
     }
 
     .right-col {
+        themed background-color container-background-color;
         flex-grow: 1;
         flex-shrink: 1;
         flex-basis: 55%;
         overflow-x: hidden;
         min-height: auto;
         flex-direction: column;
-        padding-left: 0.5rem;
+        padding: 0.7rem;
         min-width: 340px;
-
-        padding-right: 0;
+        
         display: flex;
 
         @media screen and (min-width: 1161px) {
