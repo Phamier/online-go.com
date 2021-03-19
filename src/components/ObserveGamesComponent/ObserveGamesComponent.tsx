@@ -269,7 +269,7 @@ export class ObserveGamesComponent extends React.PureComponent<ObserveGamesCompo
 
         return (
         <div className="ObserveGamesComponent">
-            <div className="container custom-theme-styles-all">
+            <div className="container container-border container-background">
                 <div className="games">
                     <div className="header">
 

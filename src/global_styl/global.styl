@@ -54,31 +54,28 @@ html, body, #main-content, #main-content > div {
     themed background-color background-color;
 }
 
-/* CUSTOM THEME STYLES */
-.custom-theme-bg {
+/* CONTAINER STYLES */
+.container-background {
     themed background-color container-background-color;
 }
 
-.custom-theme-box-shadow {
+.container-box-shadow {
    themed box-shadow container-box-shadow;
 }
 
-.custom-theme-border {
-    themed border container-border;
+.container-border {
+    border: 1px solid transparent;
+    themed border-color container-border-color;    
 }
 
-.custom-theme-border-color {
-    themed border-color container-border-color;
-}
-
-.custom-theme-styles-all {
+.container-styles-all {
+    border: 1px solid transparent;
     themed background-color container-background-color;
     themed box-shadow container-box-shadow;
-    themed border container-border;
     themed border-color container-border-color;
 }
 
-/* CUSTOM THEME STYLES  - END*/
+/* CONTAINER STYLES - END*/
 .monospace {
     font-family: 'Source Code Pro', monospace;
 }
@@ -156,7 +153,6 @@ a.primary:active, a.primary:hover, .primary.clickable:hover, .primary.fakelink:h
 .page-width {
     themed background-color container-background-color;
     themed border container-border;
-    themed border-color container-border-color;
     themed box-shadow container-box-shadow;
 
     align-self: center;
