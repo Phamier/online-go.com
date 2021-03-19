@@ -46,7 +46,7 @@ function _update_theme(theme) {
     if (body.hasClass(theme)) {
         return;
     }
-    body.removeClass("light dark accessible custom");
+    body.removeClass("light dark accessible");
     body.addClass(theme);
 }
 
@@ -61,7 +61,6 @@ function setTheme(theme) {
     _update_theme(theme);
 }
 
-// Anonymous users only get dark, light and accessible themes
 function toggleTheme() {
     if (data.get("theme") === "dark") {
         setTheme("light");
@@ -75,7 +74,6 @@ function toggleTheme() {
 let setThemeLight = setTheme.bind(null, "light");
 let setThemeDark = setTheme.bind(null, "dark");
 let setThemeAccessible = setTheme.bind(null, "accessible");
-let setThemeCustom = setTheme.bind(null, "custom");
 
 export function logout() {
     get("/api/v0/logout").then((config) => {
