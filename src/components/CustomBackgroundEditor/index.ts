@@ -15,19 +15,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-.CustomThemeEditor {
-    display: inline-flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    max-width: 100%;
-    justify-content: center;
-    
-    .customUrlSelector {
-        width: 212px;
-        height: 24px;
-        border: 1px solid lightgrey;
-        margin-top: 0px;
-        margin-bottom: 10px;
-    }
-}
+export * from "./CustomBackgroundEditor";

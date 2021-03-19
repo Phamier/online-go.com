@@ -28,7 +28,7 @@ import {challenge, createDemoBoard} from "ChallengeModal";
 import {openNewGameModal} from "NewGameModal";
 import {KBShortcut} from "KBShortcut";
 import {LanguagePicker} from "LanguagePicker";
-import {CustomThemeEditor } from "CustomThemeEditor";
+import {CustomBackgroundEditor } from "CustomBackgroundEditor";
 import {GobanThemePicker} from "GobanThemePicker";
 import {IncidentReportTracker} from "IncidentReportTracker";
 import {NotificationIndicator, TurnIndicator, NotificationList} from "Notifications";
@@ -123,7 +123,7 @@ export class NavBar extends React.PureComponent<{}, any> {
     UNSAFE_componentWillMount() {
         data.watch("config.user", (user) => this.setState({"user": user}));
 
-        data.watch("customThemeURL", url => {
+        data.watch("custom.backgroundUrl", url => {
             body.css('background-image', `url(${url})`);
         });
 
@@ -364,7 +364,7 @@ export class NavBar extends React.PureComponent<{}, any> {
                 </div>
 
                 <div className="theme-selectors">
-                    <CustomThemeEditor />
+                    <CustomBackgroundEditor />
                 </div>
 
                 <div className="theme-selectors">

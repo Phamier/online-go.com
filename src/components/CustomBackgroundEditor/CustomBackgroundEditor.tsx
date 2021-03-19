@@ -19,11 +19,10 @@ import * as React from "react";
 import * as data from "data";
 import {pgettext} from "translate";
 
-export class CustomThemeEditor extends React.PureComponent<{}, any> {
+export class CustomBackgroundEditor extends React.PureComponent<{}, any> {
     constructor(props) {
         super(props);
         this.state = {
-            visible: data.get("theme") == "custom",
             url: this.getURL(),
         };
 
@@ -31,7 +30,7 @@ export class CustomThemeEditor extends React.PureComponent<{}, any> {
     }
 
     render() {
-        return <div className="CustomThemeEditor">
+        return <div className="CustomBackgroundEditor">
             <input className="customUrlSelector"
                 type="text"
                 value={this.state.url}
@@ -48,11 +47,11 @@ export class CustomThemeEditor extends React.PureComponent<{}, any> {
     componentWillUnmount() {}
 
     getURL() {
-        return data.get("customThemeURL");
+        return data.get("custom.backgroundUrl");
     }
 
     setURL(event) {
-        data.set("customThemeURL", event.target.value);
+        data.set("custom.backgroundUrl", event.target.value);
         this.setState({ url: event.target.value});
     }
 }

@@ -86,7 +86,7 @@ try {
 import * as data from "data";
 import * as preferences from "preferences";
 
-data.setDefault("customThemeURL", "https://i.ibb.co/fGfXv5R/bg-bggenerator-com.png");
+data.setDefault("custom.backgroundUrl", "");
 data.setDefault("theme", "light");
 data.setDefault("config", {
     "user": {
