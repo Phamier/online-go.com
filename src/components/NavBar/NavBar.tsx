@@ -124,19 +124,9 @@ export class NavBar extends React.PureComponent<{}, any> {
 
     UNSAFE_componentWillMount() {
         data.watch("config.user", (user) => this.setState({"user": user}));
-        data.watch("theme", theme => {
-            this.setState({"theme": theme})
-            if (theme == "custom") {
-                body.css('background-image', `url(${data.get("customThemeURL")})`);
-            } else {
-                body.css('background-image', `none`);
-            }
-        });
 
         data.watch("customThemeURL", url => {
-            if (data.get("theme") == "custom") {
-                body.css('background-image', `url(${url})`);
-            }
+            body.css('background-image', `url(${url})`);
         });
 
         browserHistory.listen(location => {
@@ -373,14 +363,11 @@ export class NavBar extends React.PureComponent<{}, any> {
                     <button className="theme-button accessible"
                         onClick={setThemeAccessible}
                         ><i className="fa fa-eye"/></button>
-                    <button className="theme-button custom"
-                        onClick={setThemeCustom}
-                        ><i className="fa fa-gear"/></button>
                 </div>
 
-                {this.state.theme === "custom" && <div className="theme-selectors">
+                <div className="theme-selectors">
                     <CustomThemeEditor />
-                </div>}
+                </div>
 
                 <div className="theme-selectors">
                     <GobanThemePicker />

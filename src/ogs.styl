@@ -83,19 +83,16 @@ special-player-type-priority = {
 light = {}
 dark = {}
 accessible = {}
-custom = {}
 
 themes = {}
 themes.light = light
 themes.dark = dark
 themes.accessible = accessible
-themes.custom = custom
 
 
 light.clear = transparent
 dark.clear = transparent
 accessible.clear = transparent
-custom.clear = transparent
 
 
 /*************/
@@ -107,7 +104,7 @@ light.bg                                = #fff
 light.fg                                = #202020
 light.fg-increased-contrast             = #000000
 light.mix-base                          = #999
-light.background-color                  = light.bg
+light.background-color                  = alpha(#fff, 15%)
 light.card-background-color             = lighten(light.bg, 20%)
 light.text-color                        = light.fg
 light.text-color-active                 = darken(light.text-color, 50%)
@@ -117,6 +114,11 @@ light.toast-bg                          = light.fg
 light.toast-fg                          = light.bg
 light.link-color                        = #0068F7
 light.link-color-active                 = darken(light.link-color, 20%)
+
+light.container-background-color         = alpha(light.bg, 80%)
+light.container-border                   = 1px solid transparent
+light.container-border-color             = lighten(light.container-background-color, 10%)
+light.container-box-shadow               = 0px 2px 10px 0px alpha(#000, 16%)
 
 light.default-button                    = #E6E6E0
 light.primary                           = #2480FF
@@ -238,12 +240,6 @@ light.player-white-clock                = light.player-white-fg
 light.player-black-paused-clock          = #ABA8AD;
 light.player-white-paused-clock          = #928A99;
 
-/* Custom theme only */
-light.container-background-color         = transparent
-light.container-border                   = none
-light.container-border-color             = transparent
-light.container-box-shadow               = none
-
 /************/
 /*** DARK ***/
 /************/
@@ -253,7 +249,7 @@ dark.bg                                 = #1a1a1a
 dark.fg                                 = #bbbbbb
 dark.fg-increased-contrast              = #ffffff
 dark.mix-base                           = #777
-dark.background-color                   = dark.bg
+dark.background-color                   = alpha(black, 15%) 
 dark.card-background-color              = lighten(dark.bg, 7%)
 dark.text-color                         = dark.fg
 dark.spectator-text-color               = #8987FC
@@ -262,6 +258,11 @@ dark.toast-bg                           = dark.fg
 dark.toast-fg                           = dark.bg
 dark.link-color                         = #539bff
 dark.link-color-active                  = darken(dark.link-color, 20%)
+
+dark.container-background-color         = alpha(dark.bg, 80%)
+dark.container-border                   = 1px solid transparent
+dark.container-border-color             = lighten(dark.container-background-color, 10%)
+dark.container-box-shadow               = 0px 2px 10px 0px alpha(#000, 16%)
 
 dark.default-button                     = lighten(dark.bg, 10%)
 dark.default-button-color               = dark.fg
@@ -329,8 +330,8 @@ dark.annul-opacity                    = 0.3
 
 /** React Select colors **/
 
-dark.react-select-bg                   = dark.shade4
-dark.react-select-border               = dark.shade5
+dark.react-select-bg                   = lighten(dark.bg, 20%)
+dark.react-select-border               = lighten(dark.bg, 13%)
 dark.react-select-selected-bg          = #2684FF
 dark.react-select-selected-fg          = #FFFFFF
 dark.react-select-focused-bg           = #435B80
@@ -356,7 +357,7 @@ dark.goban-shadow                       = none
 dark.goban-shadow-borderless            = none
 dark.miniboard-to-move                  = #2B4029
 dark.miniboard-to-move-border           = darken(dark.miniboard-to-move, 60%)
-dark.miniboard-hover                    = #578588
+dark.miniboard-hover                    = alpha(#578588, 70%);
 dark.miniboard-hover-border             = darken(dark.miniboard-hover, 30%)
 dark.miniboard-stone-removal            = #5B4810
 dark.miniboard-stone-removal-border     = darken(dark.miniboard-stone-removal, 45%)
@@ -375,11 +376,6 @@ dark.player-black-paused-clock          = #928A99;
 
 dark.joseki-ideal                       = #DBAF00;
 
-/* Custom theme only */
-dark.container-background-color         = transparent
-dark.container-border                   = none
-dark.container-border-color             = transparent
-dark.container-box-shadow               = none
 
 /******************/
 /*** ACCESSIBLE ***/
@@ -402,6 +398,11 @@ accessible.toast-bg                           = accessible.fg
 accessible.toast-fg                           = accessible.bg
 accessible.link-color                         = #539bff
 accessible.link-color-active                  = darken(accessible.link-color, 20%)
+
+accessible.container-background-color         = transparent
+accessible.container-border                   = 1px solid transparent
+accessible.container-border-color             = transparent
+accessible.container-box-shadow               = none
 
 accessible.default-button                     = lighten(accessible.bg, 10%)
 accessible.default-button-color               = accessible.fg
@@ -515,148 +516,6 @@ accessible.player-black-paused-clock          = #928A99;
 
 accessible.joseki-ideal                       = #DBAF00;
 
-/* Custom theme only */
-accessible.container-background-color         = transparent
-accessible.container-border                   = none
-accessible.container-border-color             = transparent
-accessible.container-box-shadow               = none
-
-/**************/
-/*** CUSTOM ***/
-/**************/
-core-color-darken-amount = 20%
-
-custom.bg                                 = #1a1a1a
-custom.fg                                 = #bbbbbb
-custom.fg-increased-contrast              = #ffffff
-custom.mix-base                           = #777
-custom.background-color                   = alpha(black, 15%) 
-custom.card-background-color              = lighten(custom.bg, 7%)
-custom.text-color                         = custom.fg
-custom.spectator-text-color               = #8987FC
-custom.text-color-active                  = lighten(custom.text-color, 50%)
-custom.toast-bg                           = custom.fg
-custom.toast-fg                           = custom.bg
-custom.link-color                         = #539bff
-custom.link-color-active                  = darken(custom.link-color, 20%)
-
-// Unique values for custom background
-custom.container-background-color         = alpha(custom.bg, 85%)
-custom.container-border                   = 1px solid transparent
-custom.container-border-color             = lighten(custom.container-background-color, 10%)
-custom.container-box-shadow               = 0px 2px 10px 0px alpha(#000, 16%)
-
-custom.default-button                     = lighten(custom.bg, 10%)
-custom.default-button-color               = custom.fg
-custom.primary                            = darken(light.primary, core-color-darken-amount)
-custom.danger                             = darken(light.danger, core-color-darken-amount)
-custom.success                            = darken(light.success, core-color-darken-amount)
-custom.info                               = darken(light.info, core-color-darken-amount)
-custom.reject                             = darken(light.reject, core-color-darken-amount + 10%)
-custom.colored-background-fg              = #eeeeee
-custom.malkovich-bg                       = #597053
-custom.variation                          = #00aaff
-custom.variation-hover                    = #1A93D0
-custom.email-banner                       = #2A492B
-custom.chart-area                         = #092D3E
-custom.chart-line                         = #329BE0
-custom.error-boundary-bg                  = darken(light.reject, 50%)
-custom.error-boundary-fg                  = lighten(light.reject, 50%)
-
-custom.indicate-online                    = #6f6
-custom.indicate-online-shadow             = -1px -1px 0 #fff,  1px -1px 0 #8c8, -1px 1px 0 #8c8, 1px 1px 0 #6a6;
-custom.chat-offline                       = #ccc
-custom.chat-offline-shadow                = -1px -1px 0 #ccc,  1px -1px 0 #ccc, -1px 1px 0 #ccc, 1px 1px 0 #ccc;
-
-custom.user                               = #9dc6ff
-custom.supporter                          = supporter-gold;
-custom.aga-official                       = light.aga-official;
-custom.professional                       = green;
-custom.bot                                = light.bot
-custom.moderator                          = lighten(light.moderator, 20%)
-custom.admin                              = lighten(light.admin, 20%)
-custom.ambassador                         = light.ambassador
-custom.teacher                            = light.teacher
-
-custom.shade0                             = lighten(custom.container-background-color, 70%)
-custom.shade1                             = lighten(custom.container-background-color, 50%)
-custom.shade2                             = lighten(custom.container-background-color, 35%)
-custom.shade3                             = lighten(custom.container-background-color, 25%)
-custom.shade4                             = lighten(custom.container-background-color, 20%)
-custom.shade5                             = lighten(custom.container-background-color, 13%)
-
-custom.search-highlight                  = #554E00
-
-custom.chat-mentions                      = #E36497 // pink
-custom.chat-self-message                  = #8AB1E6
-custom.chat-system                        = lighten(light.chat-system, 20%)
-custom.private-chat-user                  = #eeeeee
-
-
-custom.win                                = desaturate(darken(light.win, 30%), 20%)
-custom.loss                               = desaturate(darken(light.loss, 30%), 20%)
-
-custom.strong-win                         = lighten(custom.win, 25%)
-custom.strong-loss                        = lighten(custom.loss, 25%)
-
-custom.weak-win                           = darken(custom.win, 25%)
-custom.weak-loss                          = darken(custom.loss, 25%)
-
-custom.strong-w-text                      = custom.bg
-custom.strong-l-text                      = custom.bg
-custom.weak-w-text                        = custom.fg
-custom.weak-l-text                        = custom.fg
-
-custom.winner-trophy                     = #e6b500
-custom.annul-opacity                    = 0.3
-
-/** React Select colors **/
-
-custom.react-select-bg                   = lighten(custom.bg, 20%)
-custom.react-select-border               = lighten(custom.bg, 13%)
-custom.react-select-selected-bg          = #2684FF
-custom.react-select-selected-fg          = #FFFFFF
-custom.react-select-focused-bg           = #435B80
-custom.react-select-focused-fg           = #ffffff
-
-/** Navbar **/
-
-custom.navbar-highlight-background-color  = #333
-custom.navbar-background-color            = lighten(custom.bg, 5%)
-custom.logo-svg                           = svg-load("../assets/ogs_dark.svg")
-
-
-/** Input **/
-
-custom.input-bg                           = lighten(custom.bg, 30%)
-custom.input-border                       = lighten(custom.bg, 30%)
-custom.input-fg                           = custom.fg
-
-
-/** MiniBoards **/
-
-custom.goban-shadow                       = none
-custom.goban-shadow-borderless            = none
-custom.miniboard-to-move                  = #2B4029
-custom.miniboard-to-move-border           = darken(custom.miniboard-to-move, 60%)
-custom.miniboard-hover                    = alpha(#578588, 70%);
-custom.miniboard-hover-border             = darken(custom.miniboard-hover, 30%)
-custom.miniboard-stone-removal            = #5B4810
-custom.miniboard-stone-removal-border     = darken(custom.miniboard-stone-removal, 45%)
-custom.miniboard-stone-removal-hover      = darken(custom.miniboard-stone-removal, 45%)
-custom.miniboard-stone-removal-hover-border= darken(custom.miniboard-stone-removal-hover, 45%)
-custom.player-black-background            = linear-gradient(to bottom, #7d7d7d 0%, #333333 50%, #0c0c0c 100%);
-custom.player-white-background            = linear-gradient(to bottom, #888888 0%, #efefef 50%, #efefef 100%);
-custom.inactive-support-gradient          = linear-gradient(to bottom, #7d7d7d 0%, #333333 100%);
-custom.active-support-gradient            = linear-gradient(to bottom, darken(supporter-gold, 30%) 0%, darken(supporter-gold, 60%) 100%);
-custom.player-black-fg                    = custom.fg
-custom.player-white-fg                    = darken(custom.fg, 90%)
-custom.player-black-clock                 = lighten(custom.player-black-fg, 50%)
-custom.player-white-clock                 = #000
-custom.player-white-paused-clock          = #5F4A71;
-custom.player-black-paused-clock          = #928A99;
-
-custom.joseki-ideal                       = #DBAF00;
 
 /************/
 /************/
