@@ -16,7 +16,13 @@
  */
 
 .User {
-    padding-top: 3rem;
+    border: 1px solid transparent;
+    themed background-color container-background-color;
+    themed border-color container-border-color;
+    themed box-shadow container-box-shadow;
+    padding-top: 1rem;
+
+    min-height: "calc(100vh - %s)" % navbar-height;
 
     dt, dd {
         margin-bottom: 0.5em;
@@ -574,3 +580,9 @@
     }
 }
 
+@media only screen and (min-width: grid-breaks[lg] - 1)
+    .User
+        margin-top: 1 rem;
+        margin-bottom: 1rem
+        min-height: auto;
+        padding-top: 2rem;
