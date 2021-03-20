@@ -403,365 +403,364 @@ export class Group extends React.PureComponent<GroupProperties, any> {
         }
 
         return (
-        <div className="Group container">
-            <UIPush event="players-updated" channel={`group-${group.id}`} action={this.refreshPlayerList} />
-            <UIPush event="reload-group" channel={`group-${group.id}`} action={this.refreshGroup}/>
-
+        <div>
             {(editing || group.has_banner || null) &&
-                <div className="banner">
-                  {editing
-                    ? <Dropzone className="Dropzone" onDrop={this.updateBanner} multiple={false}>
-                       {this.state.new_banner
-                           ? <img src={this.state.new_banner.preview}/>
-                           : (group.banner ? <img src={group.banner}/> : <i className="fa fa-picture-o"/>)
-                       }
-                      </Dropzone>
-                    : (group.banner ? <img src={group.banner}/> : <i className="fa fa-picture-o"/>)
-                  }
-                </div>
+            <div className="banner container">
+                {editing
+                ? <Dropzone className="Dropzone" onDrop={this.updateBanner} multiple={false}>
+                    {this.state.new_banner
+                        ? <img src={this.state.new_banner.preview}/>
+                        : (group.banner ? <img src={group.banner}/> : <i className="fa fa-picture-o"/>)
+                    }
+                    </Dropzone>
+                : (group.banner ? <img src={group.banner}/> : <i className="fa fa-picture-o"/>)
+                }
+            </div>
             }
-            <div className="row">
-                <div className="col-sm-9">
-                    <Card style={{minHeight: "10rem", position: "relative"}}>{/* Main card  */}
-                        {(this.state.is_admin || user.is_moderator || null) &&
-                            <i className={editing ? "fa fa-save" : "fa fa-pencil"} onClick={this.toggleEdit}/>
+            <div className="Group container">
+                <UIPush event="players-updated" channel={`group-${group.id}`} action={this.refreshPlayerList} />
+                <UIPush event="reload-group" channel={`group-${group.id}`} action={this.refreshGroup}/>
+
+
+                <div className="row">
+                    <div className="col-sm-9">
+                        <Card style={{minHeight: "10rem", position: "relative"}}>{/* Main card  */}
+                            {(this.state.is_admin || user.is_moderator || null) &&
+                                <i className={editing ? "fa fa-save" : "fa fa-pencil"} onClick={this.toggleEdit}/>
+                            }
+
+                            <div className="row">
+                                <div className="col-sm-2" style={{minWidth: "128px"}}>
+                                    {editing
+                                        ? <Dropzone className="Dropzone Dropzone-128" onDrop={this.updateIcon} multiple={false}>
+                                        {this.state.new_icon
+                                            ? <img src={this.state.new_icon.preview} style={{maxHeight: "128px", maxWidth: "128px"}}/>
+                                            : <img src={group.icon} style={{maxHeight: "128px", maxWidth: "128px"}}/>
+                                        }
+                                        </Dropzone>
+                                        : <img src={group.icon} style={{maxHeight: "128px", maxWidth: "128px"}}/>
+                                    }
+                                </div>
+                                <div className="col-sm-10">
+                                    {!editing
+                                        ? <h2>{group.name}</h2>
+                                        : <input type="text" placeholder={_("Group name")} style={{width: 'calc(100% - 30px)'}} value={group.name} onChange={this.setGroupName} />
+                                    }
+
+                                    <div className="admins">
+                                        <b style={{marginRight: "1rem"}}>{_("Admins")}:</b> { group.admins.map((u, idx) => <Player key={idx} icon user={u} />) }
+                                    </div>
+
+                                    {((this.state.group_loaded && editing && user.is_moderator) || null) &&
+                                        <div>
+                                            <button className="reject" onClick={this.deleteGroup}>{_("Delete Group")}</button>
+                                        </div>
+                                    }
+
+                                    {(this.state.group_loaded || null) &&
+                                        (group.is_member
+                                            ? this.state.is_admin
+                                                ? (editing
+                                                    ? (
+                                                        (((user.id === (group.founder && group.founder.id)) || user.is_moderator) || null) &&
+                                                            <div>
+                                                                <button className="reject" onClick={this.deleteGroup}>{_("Delete Group")}</button>
+                                                            </div>
+                                                    )
+                                                    : <div>
+                                                        <button className="primary sm" disabled={this.state.show_new_news_post} onClick={this.toggleNewNewsPost}>
+                                                            {_("Create news post")}
+                                                        </button>
+                                                        <button className="primary sm" onClick={this.createTournament}>
+                                                            {_("Create tournament")}
+                                                        </button>
+                                                        <button className="primary sm" onClick={this.createTournamentRecord}>
+                                                            {_("Create tournament record")}
+                                                        </button>
+                                                    </div>
+                                                )
+                                                : <div>
+                                                    <button className="sm" disabled={this.state.is_admin} onClick={this.leaveGroup}>
+                                                        {_("Leave Group")}
+                                                    </button>
+                                                    <button className="primary sm" onClick={this.createTournament}>
+                                                        {_("Create tournament")}
+                                                    </button>
+                                                    <button className="primary sm" onClick={this.createTournamentRecord}>
+                                                        {_("Create tournament record")}
+                                                    </button>
+                                                </div>
+                                            : group.is_public
+                                                ? <button className="primary sm" disabled={user.anonymous} onClick={this.joinGroup}>{_("Join Group")}</button>
+                                                : group.require_invitation
+                                                    ? <i>{_("This is a private group, you must be invited to join")}</i>
+                                                    : this.state.invitation_request_pending
+                                                        ? <i>{_("A request to join this group has been sent to the group administrators")}</i>
+                                                        : <button className="primary sm" disabled={user.anonymous} onClick={this.joinGroup}>{_("Request to join this group")}</button>
+                                        )
+                                    }
+
+
+                                    <div className="pad">
+                                        {(editing || group.website || null) && <b>{_("Website")}: </b>}
+                                        {((!editing && group.website) || null) && <span>{
+                                            <a target="_blank" href={group_website_href}>{group.website}</a>
+                                        }</span>}
+                                        {(editing || null) && <span>
+                                            <input type="url" value={group.website} onChange={this.setWebsite} />
+                                        </span>}
+                                    </div>
+
+                                    <div className="pad">
+                                        {(editing || group.location || null) && <b>{_("Location")}: </b>}
+                                        {((!editing && group.location) || null) && <span>{group.location}</span>}
+                                        {(editing || null) &&
+                                            <span><input value={group.location} onChange={this.setLocation}/></span>
+                                        }
+                                    </div>
+
+                                    <div className="pad">
+                                        {((editing ) || null) &&
+                                            <div>
+                                                <input type="checkbox" id="public-group" checked={group.is_public} onChange={this.setOpenToThePublic}/>
+                                                <label htmlFor="public-group">{_("Public group")}</label>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div className="pad">
+                                        {((editing ) || null) &&
+                                            <div>
+                                                <input type="checkbox" id="require-invitation" checked={group.require_invitation} onChange={this.setDisableInvitationRequests}/>
+                                                <label htmlFor="require-invitation">{_("Disable invitation requests")}</label>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div className="pad">
+                                        {((!editing && group.hide_details) || null) && <i>{_("Group details are hidden")}</i>}
+                                        {((editing ) || null) &&
+                                            <div>
+                                                <input type="checkbox" id="hide-details" checked={group.hide_details} onChange={this.setHideDetails}/>
+                                                <label htmlFor="hide-details">{_("Hide group details")}</label>
+                                            </div>
+                                        }
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            {!editing
+                                ? <Markdown source={group.description}/>
+                                : <textarea rows={7} value={group.description} onChange={this.setDescription} placeholder={_("Description") /* translators: Description of the group */} />
+                            }
+                            {(editing || null) &&
+                                <div>
+                                    <b>{_("Short Description") /* translators: Short description of the group */}: </b>
+                                    <i>{_("This will be visible on the group list and search page")}</i>
+                                    <textarea value={group.short_description} onChange={this.setShortDescription} placeholder={_("Short Description")} />
+                                </div>
+                            }
+                        </Card>
+
+
+                        {((!editing && group.bulletin) || null) && <Card><Markdown source={group.bulletin}/></Card>}
+                        {(editing || null) &&
+                            <Card>
+                                <textarea rows={7} placeholder={_("Bulletin")} value={group.bulletin} onChange={this.setBulletin} />
+                            </Card>
                         }
 
-                        <div className="row">
-                            <div className="col-sm-2" style={{minWidth: "128px"}}>
-                                {editing
-                                    ? <Dropzone className="Dropzone Dropzone-128" onDrop={this.updateIcon} multiple={false}>
-                                       {this.state.new_icon
-                                           ? <img src={this.state.new_icon.preview} style={{maxHeight: "128px", maxWidth: "128px"}}/>
-                                           : <img src={group.icon} style={{maxHeight: "128px", maxWidth: "128px"}}/>
-                                       }
-                                      </Dropzone>
-                                    : <img src={group.icon} style={{maxHeight: "128px", maxWidth: "128px"}}/>
-                                }
-                            </div>
-                            <div className="col-sm-10">
-                                {!editing
-                                    ? <h2>{group.name}</h2>
-                                    : <input type="text" placeholder={_("Group name")} style={{width: 'calc(100% - 30px)'}} value={group.name} onChange={this.setGroupName} />
-                                }
-
-                                <div className="admins">
-                                    <b style={{marginRight: "1rem"}}>{_("Admins")}:</b> { group.admins.map((u, idx) => <Player key={idx} icon user={u} />) }
+                        <div className="new-news">
+                            {(this.state.show_new_news_post || null) &&
+                                <div>
+                                    <input ref="new_news_title" type="text" placeholder={_("Title")} value={this.state.new_news_title} onChange={this.setNewNewsTitle}/>
+                                    <textarea ref="new_news_body" rows={7} placeholder={_("News")} value={this.state.new_news_body} onChange={this.setNewNewsBody}/>
+                                    <button className="reject" onClick={this.toggleNewNewsPost}>{_("Cancel")}</button>
+                                    <button className="primary" onClick={this.postNewNews}>{_("Post!")}</button>
                                 </div>
-
-                                {((this.state.group_loaded && editing && user.is_moderator) || null) &&
-                                    <div>
-                                        <button className="reject" onClick={this.deleteGroup}>{_("Delete Group")}</button>
-                                    </div>
-                                }
-
-                                {(this.state.group_loaded || null) &&
-                                    (group.is_member
-                                        ? this.state.is_admin
-                                            ? (editing
-                                                ? (
-                                                    (((user.id === (group.founder && group.founder.id)) || user.is_moderator) || null) &&
-                                                        <div>
-                                                            <button className="reject" onClick={this.deleteGroup}>{_("Delete Group")}</button>
-                                                        </div>
-                                                  )
-                                                : <div>
-                                                     <button className="primary sm" disabled={this.state.show_new_news_post} onClick={this.toggleNewNewsPost}>
-                                                         {_("Create news post")}
-                                                     </button>
-                                                     <button className="primary sm" onClick={this.createTournament}>
-                                                         {_("Create tournament")}
-                                                     </button>
-                                                     <button className="primary sm" onClick={this.createTournamentRecord}>
-                                                         {_("Create tournament record")}
-                                                     </button>
-                                                  </div>
-                                              )
-                                            : <div>
-                                                 <button className="sm" disabled={this.state.is_admin} onClick={this.leaveGroup}>
-                                                    {_("Leave Group")}
-                                                 </button>
-                                                 <button className="primary sm" onClick={this.createTournament}>
-                                                     {_("Create tournament")}
-                                                 </button>
-                                                 <button className="primary sm" onClick={this.createTournamentRecord}>
-                                                     {_("Create tournament record")}
-                                                 </button>
-                                              </div>
-                                        : group.is_public
-                                            ? <button className="primary sm" disabled={user.anonymous} onClick={this.joinGroup}>{_("Join Group")}</button>
-                                            : group.require_invitation
-                                                ? <i>{_("This is a private group, you must be invited to join")}</i>
-                                                : this.state.invitation_request_pending
-                                                    ? <i>{_("A request to join this group has been sent to the group administrators")}</i>
-                                                    : <button className="primary sm" disabled={user.anonymous} onClick={this.joinGroup}>{_("Request to join this group")}</button>
-                                    )
-                                }
-
-
-                                <div className="pad">
-                                    {(editing || group.website || null) && <b>{_("Website")}: </b>}
-                                    {((!editing && group.website) || null) && <span>{
-                                        <a target="_blank" href={group_website_href}>{group.website}</a>
-                                    }</span>}
-                                    {(editing || null) && <span>
-                                        <input type="url" value={group.website} onChange={this.setWebsite} />
-                                    </span>}
-                                </div>
-
-                                <div className="pad">
-                                    {(editing || group.location || null) && <b>{_("Location")}: </b>}
-                                    {((!editing && group.location) || null) && <span>{group.location}</span>}
-                                    {(editing || null) &&
-                                        <span><input value={group.location} onChange={this.setLocation}/></span>
-                                    }
-                                </div>
-
-                                <div className="pad">
-                                    {((editing ) || null) &&
-                                        <div>
-                                            <input type="checkbox" id="public-group" checked={group.is_public} onChange={this.setOpenToThePublic}/>
-                                            <label htmlFor="public-group">{_("Public group")}</label>
-                                        </div>
-                                    }
-                                </div>
-                                <div className="pad">
-                                    {((editing ) || null) &&
-                                        <div>
-                                            <input type="checkbox" id="require-invitation" checked={group.require_invitation} onChange={this.setDisableInvitationRequests}/>
-                                            <label htmlFor="require-invitation">{_("Disable invitation requests")}</label>
-                                        </div>
-                                    }
-                                </div>
-                                <div className="pad">
-                                    {((!editing && group.hide_details) || null) && <i>{_("Group details are hidden")}</i>}
-                                    {((editing ) || null) &&
-                                        <div>
-                                            <input type="checkbox" id="hide-details" checked={group.hide_details} onChange={this.setHideDetails}/>
-                                            <label htmlFor="hide-details">{_("Hide group details")}</label>
-                                        </div>
-                                    }
-                                </div>
-
-
-                            </div>
+                            }
                         </div>
 
-                        {!editing
-                            ? <Markdown source={group.description}/>
-                            : <textarea rows={7} value={group.description} onChange={this.setDescription} placeholder={_("Description") /* translators: Description of the group */} />
-                        }
-                        {(editing || null) &&
-                            <div>
-                                <b>{_("Short Description") /* translators: Short description of the group */}: </b>
-                                <i>{_("This will be visible on the group list and search page")}</i>
-                                <textarea value={group.short_description} onChange={this.setShortDescription} placeholder={_("Short Description")} />
-                            </div>
-                        }
-                    </Card>
-
-
-                    {((!editing && group.bulletin) || null) && <Card><Markdown source={group.bulletin}/></Card>}
-                    {(editing || null) &&
-                        <Card>
-                            <textarea rows={7} placeholder={_("Bulletin")} value={group.bulletin} onChange={this.setBulletin} />
-                        </Card>
-                    }
-
-                    <div className="new-news">
-                        {(this.state.show_new_news_post || null) &&
-                            <div>
-                                <input ref="new_news_title" type="text" placeholder={_("Title")} value={this.state.new_news_title} onChange={this.setNewNewsTitle}/>
-                                <textarea ref="new_news_body" rows={7} placeholder={_("News")} value={this.state.new_news_body} onChange={this.setNewNewsBody}/>
-                                <button className="reject" onClick={this.toggleNewNewsPost}>{_("Cancel")}</button>
-                                <button className="primary" onClick={this.postNewNews}>{_("Post!")}</button>
-                            </div>
-                        }
-                    </div>
-
-                    {(this.state.news.length > 0 || null) &&
-                        <Card style={{minHeight: "12rem"}}>
-                            <PaginatedTable
-                                ref="news"
-                                className="news"
-                                name="news"
-                                source={`groups/${group.id}/news`}
-                                pageSize={1}
-                                columns={[
-                                    {header: _("News"), className: "none", render: (entry) =>
-                                        <div>
-                                            {this.state.editing_news && this.state.editing_news.id === entry.id
-                                                ? <h2><input ref='editing_news_title' value={this.state.editing_news.title} style={{width:'100%'}} onChange={this.updateNewsTitle}/></h2>
-                                                : <h2>{localize_time_strings(entry.title)}</h2>
-                                            }
-                                            <i>{moment(entry.posted).format("llll")} - <Player icon user={entry.author} /></i>
-                                            {this.state.is_admin &&
-                                                <div>
-                                                    {this.state.editing_news && this.state.editing_news.id === entry.id
-                                                        ?  <button className='sm' onClick={this.updateNewsPost} >{_("Save")}</button>
-                                                        :  <button className='sm' onClick={this.editNewsPost.bind(this, entry)} >{_("Edit")}</button>
-                                                    }
-                                                    <button className='sm reject' onClick={this.deleteNewsPost.bind(this, entry)} >{_("Delete")}</button>
-                                                </div>
-                                            }
-                                            {this.state.editing_news && this.state.editing_news.id === entry.id
-                                                ? <textarea rows={7} ref='editing_news_body' value={this.state.editing_news.content} onChange={this.updateNewsContent} />
-                                                : <Markdown source={entry.content} />
-                                            }
-                                        </div>
-                                    },
-                                ]}
-                            />
-                        </Card>
-                    }
-
-                    {(((group.is_public && !group.hide_details) || group.is_member ) || null) && <EmbeddedChatCard channel={`group-${this.state.group.id}`} updateTitle={false} />}
-
-                    <Card>
-                        {(group.has_tournament_records || null) &&
-                            <div>
-                                <h3>{_("Tournament Records")}</h3>
-
-
+                        {(this.state.news.length > 0 || null) &&
+                            <Card style={{minHeight: "12rem"}}>
                                 <PaginatedTable
-                                    className="TournamentRecord-table"
-                                    ref="tournament_record_table"
-                                    name="tournament-record-table"
-                                    source={`tournament_records/?group=${group.id}`}
-                                    orderBy={["-created"]}
+                                    ref="news"
+                                    className="news"
+                                    name="news"
+                                    source={`groups/${group.id}/news`}
+                                    pageSize={1}
                                     columns={[
-                                        {header: _("Tournament"),  className: () => "name",
-                                         render: (tournament) => (
-                                             <div className="tournament-name">
-                                                <Link to={`/tournament-record/${tournament.id}/${slugify(tournament.name)}`}>{tournament.name}</Link>
-                                             </div>
-                                         )
+                                        {header: _("News"), className: "none", render: (entry) =>
+                                            <div>
+                                                {this.state.editing_news && this.state.editing_news.id === entry.id
+                                                    ? <h2><input ref='editing_news_title' value={this.state.editing_news.title} style={{width:'100%'}} onChange={this.updateNewsTitle}/></h2>
+                                                    : <h2>{localize_time_strings(entry.title)}</h2>
+                                                }
+                                                <i>{moment(entry.posted).format("llll")} - <Player icon user={entry.author} /></i>
+                                                {this.state.is_admin &&
+                                                    <div>
+                                                        {this.state.editing_news && this.state.editing_news.id === entry.id
+                                                            ?  <button className='sm' onClick={this.updateNewsPost} >{_("Save")}</button>
+                                                            :  <button className='sm' onClick={this.editNewsPost.bind(this, entry)} >{_("Edit")}</button>
+                                                        }
+                                                        <button className='sm reject' onClick={this.deleteNewsPost.bind(this, entry)} >{_("Delete")}</button>
+                                                    </div>
+                                                }
+                                                {this.state.editing_news && this.state.editing_news.id === entry.id
+                                                    ? <textarea rows={7} ref='editing_news_body' value={this.state.editing_news.content} onChange={this.updateNewsContent} />
+                                                    : <Markdown source={entry.content} />
+                                                }
+                                            </div>
                                         },
                                     ]}
                                 />
-                            </div>
+                            </Card>
                         }
 
-                        {(group.has_open_tournaments || null) &&
-                            <div>
-                                <h3>{_("Open Tournaments")}</h3>
-                                <TournamentList filter={{
-                                    started__isnull: true,
-                                    ended__isnull: true,
-                                    group: this.props.match.params.group_id,
-                                }}/>
-                            </div>
-                        }
+                        {(((group.is_public && !group.hide_details) || group.is_member ) || null) && <EmbeddedChatCard channel={`group-${this.state.group.id}`} updateTitle={false} />}
 
-                        {(group.has_active_tournaments || null) &&
-                            <div>
-                                <h3>{_("Active Tournaments")}</h3>
-                                <TournamentList filter={{
-                                    started__isnull: false,
-                                    ended__isnull: true,
-                                    group: this.props.match.params.group_id,
-                                }}/>
-                            </div>
-                        }
+                        <Card>
+                            {(group.has_tournament_records || null) &&
+                                <div>
+                                    <h3>{_("Tournament Records")}</h3>
 
-                        {(group.has_finished_tournaments || null) &&
-                            <div>
-                                <h3>{_("Finished Tournaments")}</h3>
-                                <TournamentList filter={{
-                                    started__isnull: false,
-                                    ended__isnull: false,
-                                    group: this.props.match.params.group_id,
-                                }}/>
-                            </div>
-                        }
-                    </Card>
 
-                </div>
-                <div className="col-sm-3">{/* Right column  */}
-                    <Card style={{minHeight: "12rem"}}>
-                        {this.state.is_admin &&
-                            <div className="invite-input">
-                                <div className="input-group" id="tournament-invite-user-container" >
-                                    <PlayerAutocomplete onComplete={this.setUserToInvite} />
-                                    <button className="btn primary sm" type="button"
-                                        disabled={this.state.user_to_invite == null} onClick={this.inviteUser}>{_("Invite")}</button>
+                                    <PaginatedTable
+                                        className="TournamentRecord-table"
+                                        ref="tournament_record_table"
+                                        name="tournament-record-table"
+                                        source={`tournament_records/?group=${group.id}`}
+                                        orderBy={["-created"]}
+                                        columns={[
+                                            {header: _("Tournament"),  className: () => "name",
+                                            render: (tournament) => (
+                                                <div className="tournament-name">
+                                                    <Link to={`/tournament-record/${tournament.id}/${slugify(tournament.name)}`}>{tournament.name}</Link>
+                                                </div>
+                                            )
+                                            },
+                                        ]}
+                                    />
                                 </div>
-                                <div className="bold">{this.state.invite_result}</div>
-                                <div id="tournament-invite-result"></div>
-                            </div>
+                            }
+
+                            {(group.has_open_tournaments || null) &&
+                                <div>
+                                    <h3>{_("Open Tournaments")}</h3>
+                                    <TournamentList filter={{
+                                        started__isnull: true,
+                                        ended__isnull: true,
+                                        group: this.props.match.params.group_id,
+                                    }}/>
+                                </div>
+                            }
+
+                            {(group.has_active_tournaments || null) &&
+                                <div>
+                                    <h3>{_("Active Tournaments")}</h3>
+                                    <TournamentList filter={{
+                                        started__isnull: false,
+                                        ended__isnull: true,
+                                        group: this.props.match.params.group_id,
+                                    }}/>
+                                </div>
+                            }
+
+                            {(group.has_finished_tournaments || null) &&
+                                <div>
+                                    <h3>{_("Finished Tournaments")}</h3>
+                                    <TournamentList filter={{
+                                        started__isnull: false,
+                                        ended__isnull: false,
+                                        group: this.props.match.params.group_id,
+                                    }}/>
+                                </div>
+                            }
+                        </Card>
+
+                    </div>
+                    <div className="col-sm-3">{/* Right column  */}
+                        <Card style={{minHeight: "12rem"}}>
+                            {this.state.is_admin &&
+                                <div className="invite-input">
+                                    <div className="input-group" id="tournament-invite-user-container" >
+                                        <PlayerAutocomplete onComplete={this.setUserToInvite} />
+                                        <button className="btn primary sm" type="button"
+                                            disabled={this.state.user_to_invite == null} onClick={this.inviteUser}>{_("Invite")}</button>
+                                    </div>
+                                    <div className="bold">{this.state.invite_result}</div>
+                                    <div id="tournament-invite-result"></div>
+                                </div>
+                            }
+
+                            <PaginatedTable
+                                ref="members"
+                                className="members"
+                                name="members"
+                                source={`groups/${group.id}/members`}
+                                groom={(u_arr) => u_arr.map((u) => player_cache.update(u.user))}
+                                columns={[
+                                    {header: _("Members"), className: "", render: (X) => <Player icon user={X} online/>},
+                                ]}
+                            />
+                        </Card>
+
+
+                        {((group.invitation_requests && group.invitation_requests.length > 0) || null) &&
+                            <Card className="invitation-requests">
+                                <h4>{_("Invitation requests")}</h4>
+                                {group.invitation_requests.map((ir) => {
+                                    let accept = () => {
+                                        group.invitation_requests = group.invitation_requests.filter((x) => x.id !== ir.id);
+                                        this.setState({'refresh': this.state.refresh + 1});
+                                        post("me/groups/invitations", { request_id: ir.id })
+                                        .then(() => console.log("Accepted invitation request", ir))
+                                        .catch(err => console.error(err));
+                                    };
+                                    let reject = () => {
+                                        group.invitation_requests = group.invitation_requests.filter((x) => x.id !== ir.id);
+                                        this.setState({'refresh': this.state.refresh + 1});
+                                        post("me/groups/invitations", { "delete": true, request_id: ir.id })
+                                        .then(() => console.log("Deleted invitation request", ir))
+                                        .catch(err => console.error(err));
+                                    };
+
+                                    return (
+                                        <div key={ir.id}>
+                                            <i className='fa fa-check' onClick={accept} />
+                                            <i className='fa fa-times' onClick={reject} />
+                                            <Player user={ir.user} />
+                                        </div>
+                                    );
+                                })}
+                            </Card>
                         }
 
-                        <PaginatedTable
-                            ref="members"
-                            className="members"
-                            name="members"
-                            source={`groups/${group.id}/members`}
-                            groom={(u_arr) => u_arr.map((u) => player_cache.update(u.user))}
-                            columns={[
-                                {header: _("Members"), className: "", render: (X) => <Player icon user={X} online/>},
-                            ]}
-                        />
-                    </Card>
 
-
-                    {((group.invitation_requests && group.invitation_requests.length > 0) || null) &&
-                        <Card className="invitation-requests">
-                            <h4>{_("Invitation requests")}</h4>
-                            {group.invitation_requests.map((ir) => {
-                                let accept = () => {
-                                    group.invitation_requests = group.invitation_requests.filter((x) => x.id !== ir.id);
-                                    this.setState({'refresh': this.state.refresh + 1});
-                                    post("me/groups/invitations", { request_id: ir.id })
-                                    .then(() => console.log("Accepted invitation request", ir))
-                                    .catch(err => console.error(err));
-                                };
-                                let reject = () => {
-                                    group.invitation_requests = group.invitation_requests.filter((x) => x.id !== ir.id);
-                                    this.setState({'refresh': this.state.refresh + 1});
-                                    post("me/groups/invitations", { "delete": true, request_id: ir.id })
-                                    .then(() => console.log("Deleted invitation request", ir))
-                                    .catch(err => console.error(err));
-                                };
-
-                                return (
-                                    <div key={ir.id}>
-                                        <i className='fa fa-check' onClick={accept} />
-                                        <i className='fa fa-times' onClick={reject} />
-                                        <Player user={ir.user} />
-                                    </div>
-                                );
-                            })}
+                        <Card className='ladders'>
+                            <div><Link to={`/ladder/${group.ladder_ids[0]}`}>{_("9x9 Ladder")}</Link></div>
+                            <div><Link to={`/ladder/${group.ladder_ids[1]}`}>{_("13x13 Ladder")}</Link></div>
+                            <div><Link to={`/ladder/${group.ladder_ids[2]}`}>{_("19x19 Ladder")}</Link></div>
                         </Card>
-                    }
 
-
-                    <Card className='ladders'>
-                        <div><Link to={`/ladder/${group.ladder_ids[0]}`}>{_("9x9 Ladder")}</Link></div>
-                        <div><Link to={`/ladder/${group.ladder_ids[1]}`}>{_("13x13 Ladder")}</Link></div>
-                        <div><Link to={`/ladder/${group.ladder_ids[2]}`}>{_("19x19 Ladder")}</Link></div>
-                    </Card>
-
-                    {/*
-                    {group.ladder_ids.map((ladder_id, idx) => (
-                        <Card key={idx}>
-                            <Link
-                            <LadderComponent
-                                pageSize={10}
-                                ladderId={ladder_id}
-                                showTitle={true}
-                                showLinkToFullView={true}
-                                hidePageControls={true}
-                                dontStartOnPlayersPage={true}
-                                />
-                        </Card>
-                    ))}
-                    */}
+                        {/*
+                        {group.ladder_ids.map((ladder_id, idx) => (
+                            <Card key={idx}>
+                                <Link
+                                <LadderComponent
+                                    pageSize={10}
+                                    ladderId={ladder_id}
+                                    showTitle={true}
+                                    showLinkToFullView={true}
+                                    hidePageControls={true}
+                                    dontStartOnPlayersPage={true}
+                                    />
+                            </Card>
+                        ))}
+                        */}
+                    </div>
                 </div>
-
-
-
             </div>
-
         </div>
         );
 
